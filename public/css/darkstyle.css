@@ -1,0 +1,74 @@
+body {
+    background-color: #111;
+    color: #eee;
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #1b1b1b;
+    padding: 2rem;
+    border: 2px solid #444;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.tagline, .referral {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
+.category {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.category .highlight {
+    color: red;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #222;
+    border: 1px solid #555;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+button {
+    width: 100%;
+    padding: 0.6rem;
+    background-color: red;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.promo {
+    color: white;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: bold;
+}
