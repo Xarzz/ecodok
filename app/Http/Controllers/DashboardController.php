@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         if ($user->role === 'admin') {
             $jadwals = JadwalKegiatan::with('kelas')->orderBy('tanggal', 'desc')->get();
-            return view('dashboard.admin', compact('jadwals'));
+            return view('admin.dashboard.index', compact('jadwals'));
         }
 
         // Role siswa

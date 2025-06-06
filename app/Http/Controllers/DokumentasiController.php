@@ -13,7 +13,7 @@ class DokumentasiController extends Controller
     public function index()
     {
         $dokumentasi = Dokumentasi::where('user_id', Auth::id())->get();
-        return view('dokumentasi.index', compact('dokumentasi'));
+        return view('admin.dokumentasi.index', compact('dokumentasi'));
     }
 
     public function create()
@@ -39,6 +39,6 @@ class DokumentasiController extends Controller
             'keterangan' => $request->keterangan,
         ]);
 
-        return redirect()->route('dokumentasi.index')->with('success', 'Dokumentasi berhasil diunggah');
+        return redirect()->route('admin.dokumentasi.index')->with('success', 'Dokumentasi berhasil diunggah');
     }
 }

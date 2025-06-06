@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    public function index()
-    {
-        $jadwals = JadwalKegiatan::with('kelas')->latest()->get();
-        return view('jadwal.index', compact('jadwals'));
-    }
+public function index(Request $request)
+{
+    $showModal = $request->query('showModal', false);
+    $jadwals = JadwalKegiatan::latest()->get();
+
+    return view('admin.jadwal-piket.index', compact('jadwals', 'showModal'));
+}
 
     public function create()
     {
         $kelas = Kelas::all();
-        return view('jadwal.create', compact('kelas'));
+        return view('admin.jadwal-piket.create', compact('kelas'));
     }
 
     public function store(Request $request)
@@ -30,29 +32,41 @@ class JadwalController extends Controller
         ]);
 
         JadwalKegiatan::create($request->all());
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil ditambahkan');
+        return redirect()->route('jadwal-piket.index')->with('success', 'Jadwal berhasil ditambahkan');
     }
 
     public function show(JadwalKegiatan $jadwal)
     {
-        return view('jadwal.show', compact('jadwal'));
+        return view('admin.jadwal-piket.show', compact('jadwal'));
     }
 
-    public function edit(JadwalKegiatan $jadwal)
+    public function edit(JadwalKegiatan $jadwal_edit)
     {
+        $jadwal = $jadwal_edit; // GANTI INI
         $kelas = Kelas::all();
-        return view('jadwal.edit', compact('jadwal', 'kelas'));
+
+        return view('admin.jadwal-piket.edit', compact('jadwal', 'kelas'));
     }
 
     public function update(Request $request, JadwalKegiatan $jadwal)
     {
-        $jadwal->update($request->all());
-        return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil diupdate');
+    $request->validate([
+        'tanggal' => 'required|date',
+        'kategori' => 'required|string',
+        'kelas_id' => 'required|exists:kelas,id',
+        'lokasi' => 'nullable|string',
+        'link_drive' => 'nullable|url',
+    ]);
+
+    $jadwal->update($request->all());
+    return redirect()->route('jadwal-piket.index')->with('success', 'Jadwal berhasil diupdate');
     }
 
-    public function destroy(JadwalKegiatan $jadwal)
+
+    public function destroy($id)
     {
-        $jadwal->delete();
-        return back()->with('success', 'Jadwal berhasil dihapus');
+         $jadwal = JadwalKegiatan::findOrFail($id); // GANTI INI
+         $jadwal->delete();
+         return back()->with('success', 'Jadwal berhasil dihapus');
     }
 }
